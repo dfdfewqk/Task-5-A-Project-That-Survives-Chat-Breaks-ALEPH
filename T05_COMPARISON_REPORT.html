@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T05 · 대화가 끊겨도 이어지는 프로젝트</title>
+<style>
+  :root { --bg:#f5f7fb; --card:#fff; --text:#1d2433; --muted:#697386; --line:#e2e7ef; --accent:#325dca; --ok:#17864b; --warn:#9b6b00; }
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;line-height:1.65}
+  main{max-width:1100px;margin:0 auto;padding:36px 18px 70px}.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 22px rgba(30,50,80,.05)}
+  .hero{padding:30px 32px;margin-bottom:18px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--accent);margin:0 0 8px}.hero h1{margin:0 0 10px;font-size:32px;line-height:1.25}.hero p{margin:0;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{padding:24px 26px;margin-bottom:18px}.full{grid-column:1/-1} h2{font-size:20px;margin:0 0 14px} h3{font-size:16px;margin:18px 0 8px}.small{font-size:13px;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;font-size:14px} th,td{border-bottom:1px solid var(--line);padding:10px 9px;text-align:left;vertical-align:top} th{background:#f8faff;font-weight:800} tr:last-child td{border-bottom:0}
+  .ok{color:var(--ok);font-weight:800}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;word-break:break-all}.pill{display:inline-block;padding:3px 9px;border-radius:999px;background:#eef4ff;color:#274faa;font-size:12px;font-weight:700}
+  ol,ul{margin:8px 0 0 20px}.step{padding:10px 12px;border-left:3px solid var(--accent);background:#f8faff;margin:8px 0}.note{padding:12px 14px;background:#fff9e8;border:1px solid #f0dfad;border-radius:12px;color:#5f4b16}
+  footer{margin-top:20px;color:var(--muted);font-size:12px;text-align:center}.tight td:first-child{width:105px;font-weight:800}.tests td:nth-child(1){width:95px;font-weight:800}.tests td:nth-child(3){width:53px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}.hero h1{font-size:26px}}
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <p class="eyebrow">T05 · HANDOFF CONTINUITY</p>
+    <h1>대화가 끊겨도 이어지는 프로젝트</h1>
+    <p>과제 4의 작은 개선을 AI-A가 구현하고 AI-B가 이전 대화 전문 없이 저장된 소스와 인수인계 문서만으로 재현·검증한 비교 보고서입니다.</p>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>1. 고정 조건</h2>
+      <table class="tight">
+        <tr><td>프로젝트</td><td>T04 「오늘의 진짜 정보판」</td></tr>
+        <tr><td>작은 개선</td><td>합성 오류 발생 시 <b>보존 상태</b>를 명시적으로 표시</td></tr>
+        <tr><td>시간 상한</td><td>45분</td></tr>
+        <tr><td>요청/호출 상한</td><td>20회</td></tr>
+        <tr><td>고정 검사</td><td>T05-01 ~ T05-10, 총 10개</td></tr>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>2. 작업 순서</h2>
+      <div class="step">① AI-A 시작 → 구현 및 검사</div>
+      <div class="step">② AI-A 종료 → 소스와 7항목 인수인계 저장</div>
+      <div class="step">③ AI-B 시작 → 저장소·인수인계만 전달받아 재현</div>
+      <div class="step">④ AI-B 종료 → 동일 10개 검사 재실행</div>
+      <p class="small">대화 전문은 AI-B에 전달하지 않았습니다.</p>
+    </section>
+
+    <section class="card full">
+      <h2>3. AI-A / AI-B 익명 비교표</h2>
+      <table>
+        <thead><tr><th>측정 항목</th><th>AI-A</th><th>AI-B</th></tr></thead>
+        <tbody>
+          <tr><td>실제 작업시간</td><td>10분 25초</td><td>약 28초</td></tr>
+          <tr><td>실제 요청/호출 수</td><td>1회</td><td>2회</td></tr>
+          <tr><td>오류 회차</td><td>0회</td><td>0회</td></tr>
+          <tr><td>검사 통과</td><td class="ok">10/10</td><td class="ok">10/10</td></tr>
+          <tr><td>코드 수정</td><td>있음 · 보존 상태 구현</td><td>없음 · 검증 완료</td></tr>
+        </tbody>
+      </table>
+      <p class="small">오류 회차는 고정 검사 10개를 실행한 한 회차에서 하나 이상의 FAIL이 발생한 회차 수로 계산했습니다.</p>
+    </section>
+
+    <section class="card">
+      <h2>4. 소스 버전</h2>
+      <table class="tight">
+        <tr><td>A 시작</td><td class="mono">7f7aba7d7078b6d12c85249db58e2ff62341d258</td></tr>
+        <tr><td>A 종료</td><td class="mono">0f5d1c8e18d050335dc463e7f4873a443b71f825</td></tr>
+        <tr><td>B 시작</td><td class="mono">0f5d1c8e18d050335dc463e7f4873a443b71f825</td></tr>
+        <tr><td>B 종료</td><td class="mono">0f5d1c8e18d050335dc463e7f4873a443b71f825</td></tr>
+      </table>
+      <p class="small">AI-B는 전달받은 소스를 수정하지 않았으므로 B 시작·종료 소스는 A 종료 소스와 동일하게 유지되었습니다.</p>
+    </section>
+
+    <section class="card">
+      <h2>5. 무결성 확인</h2>
+      <table class="tight">
+        <tr><td>검사 삭제</td><td class="ok">0건</td></tr>
+        <tr><td>검사 완화</td><td class="ok">0건</td></tr>
+        <tr><td>기대값 변경</td><td class="ok">0건</td></tr>
+        <tr><td>개인정보</td><td class="ok">0건</td></tr>
+        <tr><td>비밀값 원문</td><td class="ok">0건</td></tr>
+      </table>
+    </section>
+
+    <section class="card full">
+      <h2>6. 고정 검사 10개</h2>
+      <table class="tests">
+        <thead><tr><th>ID</th><th>입력</th><th>결과</th><th>관찰 가능한 기대값</th></tr></thead>
+        <tbody>
+          <tr><td>T05-01</td><td>Replay Reset</td><td class="ok">PASS</td><td>실행 전 / 보존 상태 확인 전 / 0건</td></tr>
+          <tr><td>T05-02</td><td>Reset → D1-A</td><td class="ok">PASS</td><td>fresh · none / 새 정상값 적용 / 100 pt / 1건</td></tr>
+          <tr><td>T05-03</td><td>Reset → D1-A → D1-B</td><td class="ok">PASS</td><td>fresh · none / 새 정상값 적용 / 105 pt / 1건 유지</td></tr>
+          <tr><td>T05-04</td><td>Reset → D1-A → D1-B → D2</td><td class="ok">PASS</td><td>120 pt / 2건 / +15 pt</td></tr>
+          <tr><td>T05-05</td><td>Reset → D1-A → D1-B → Timeout</td><td class="ok">PASS</td><td>stale · timeout / 마지막 정상값 유지 / 105 pt / 1건</td></tr>
+          <tr><td>T05-06</td><td>Reset → D1-A → D1-B → Auth 401</td><td class="ok">PASS</td><td>stale · auth / 마지막 정상값 유지 / 105 pt / 1건</td></tr>
+          <tr><td>T05-07</td><td>Reset → D1-A → D1-B → Rate 429</td><td class="ok">PASS</td><td>stale · rate_limit / 마지막 정상값 유지 / 105 pt / 1건 / Retry-After 60초</td></tr>
+          <tr><td>T05-08</td><td>Reset → D1-A → D1-B → Offline</td><td class="ok">PASS</td><td>stale · offline / 마지막 정상값 유지 / 105 pt / 1건</td></tr>
+          <tr><td>T05-09</td><td>Reset → D1-A → D1-B → Schema Break</td><td class="ok">PASS</td><td>stale · schema_error / 마지막 정상값 유지 / 105 pt / 1건</td></tr>
+          <tr><td>T05-10</td><td>Reset → 오류 상태 → Recover D2</td><td class="ok">PASS</td><td>fresh · none / 새 정상값 적용 / 120 pt / 2건 / +15 pt</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>7. 7항목 인수인계</h2>
+      <table class="tight">
+        <tr><td>목표</td><td>오류 발생 시 마지막 정상값 보존 상태를 명시</td></tr>
+        <tr><td>현재 상태</td><td>개선 구현 완료 10/10 통과</td></tr>
+        <tr><td>실행 명령</td><td>index.html 실행 → 합성 테스트 → Replay Reset → fixture 실행</td></tr>
+        <tr><td>통과 검사</td><td>T05-01 ~ T05-10</td></tr>
+        <tr><td>남은 문제</td><td>기능상 남은 구현 문제 없음</td></tr>
+        <tr><td>다음 행동</td><td>AI-B가 동일 10개 검사를 재실행하고 결과 기록</td></tr>
+        <tr><td>건드리지 말 것</td><td>검사·기대값·fixture·오류 코드·기존 보존 동작</td></tr>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>8. 인수인계 재현 결과</h2>
+      <p><span class="pill">재현 가능</span></p>
+      <p>AI-B는 AI-A의 대화 전문 없이 <b>AI_A_HANDOFF.md</b>와 종료 시점 <b>index.html</b>만 제공받아 실행 절차와 테스트 기준을 재현했습니다.</p>
+      <p>헤드리스 Chromium 기반으로 10개 검사를 실행했고 페이지 JavaScript 오류는 0건이었습니다.</p>
+    </section>
+
+   
+    <section class="card full">
+      <h2>10. 도구 선택 기준</h2>
+      <p>다음 작업에서는 <b>기존 구조와 고정 검사를 보존하면서 빠르게 수정 가능하고 결과를 재현·검증하기 쉬운 도구</b>를 먼저 선택합니다.</p>
+    </section>
+
+
+    <section class="card full">
+      <h2>11. 결론</h2>
+      <p>AI-A에서 구현한 작은 개선을 중단 시점의 소스와 7항목 인수인계로 저장했고 AI-B는 이전 대화 전문 없이 동일한 소스와 인수인계 문서만으로 상태를 재현했습니다. 두 세션 모두 고정 검사 10개를 통과했으며 검사 삭제·완화·기대값 변경은 0건입니다.</p>
+      <div class="note">공개 제출 전 최종 확인: 결과물 URL과 소스 URL이 새 시크릿 창에서 로그인·인증 없이 열리는지 확인합니다.</div>
+    </section>
+  </div>
+  <footer>T05 · 대화가 끊겨도 이어지는 프로젝트 · 익명 비교 보고서</footer>
+</main>
+</body>
+</html>
